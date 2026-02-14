@@ -17,3 +17,8 @@ az deployment group create --name noparameter --resource-group ODL-az-400-207157
 
 <img width="943" height="95" alt="image" src="https://github.com/user-attachments/assets/931075df-8f93-4ebd-a689-822353e07724" />
 
+az deployment group create --name noparameter --resource-group ODL-az-400-2071575 --template-file storagedemoreusable.json --parameters storageName=crtrlstr43sewdr
+
+<img width="942" height="383" alt="image" src="https://github.com/user-attachments/assets/fed41163-8301-486d-b758-3b15d9d0208d" />
+
+

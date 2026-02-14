@@ -4,4 +4,8 @@ az deployment group create --name noparameter --resource-group aditi --template-
 
 ##To see the flexibility of your template, let's deploy it again. This time set the SKU parameter to standard geo-redundant storage (GRS) Standard_GRS. You can either pass in a new name to create a different storage account or use the same name to update your existing storage account. Both options work.
 
+
 az deployment group create --name noparameter --resource-group aditi --template-file storagedemoreusable.json --parameters storageSKU=Standard_GRS storageName=crtrlstr43sewdr
+
+
+az deployment group create --resource-group Bipeen-RG --template-file slvm.json

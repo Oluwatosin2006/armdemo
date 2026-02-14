@@ -5,7 +5,7 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2021-09-01",
-      "name": "bipeen8459iouilo",
+      "name": "bukola8459iouilo",
       "location": "eastus",
       "sku": {
         "name": "Standard_LRS"
@@ -17,3 +17,4 @@
     }
   ]
 }
+

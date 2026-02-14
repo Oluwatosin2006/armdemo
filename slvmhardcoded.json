@@ -6,7 +6,7 @@
     {
       "type": "Microsoft.Network/publicIPAddresses",
       "apiVersion": "2023-02-01",
-      "name": "Bipeen-vm-ip",
+      "name": "Bukola-vm-ip",
       "location": "westus2",
       "sku": {
         "name": "Basic"
@@ -19,7 +19,7 @@
     {
       "type": "Microsoft.Network/virtualNetworks",
       "apiVersion": "2023-02-01",
-      "name": "Bipeen-vm-vnet",
+      "name": "Bukola-vm-vnet",
       "location": "westus2",
       "properties": {
         "addressSpace": {
@@ -41,11 +41,11 @@
     {
       "type": "Microsoft.Network/networkInterfaces",
       "apiVersion": "2023-02-01",
-      "name": "Bipeen-vm-nic",
+      "name": "Bukola-vm-nic",
       "location": "westus2",
       "dependsOn": [
-        "Bipeen-vm-vnet",
-        "Bipeen-vm-ip"
+        "Bukola-vm-vnet",
+        "Bukola-vm-ip"
       ],
       "properties": {
         "ipConfigurations": [
@@ -53,10 +53,10 @@
             "name": "ipconfig1",
             "properties": {
               "subnet": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'Bipeen-vm-vnet', 'default')]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'Bukola-vm-vnet', 'default')]"
               },
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'Bipeen-vm-ip')]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'Bukola-vm-ip')]"
               }
             }
           }
@@ -67,13 +67,13 @@
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2023-03-01",
-      "name": "Bipeen-vm",
+      "name": "Bukola-vm",
       "location": "westus2",
       "tags": {
         "Dept": "Sales"
       },
       "dependsOn": [
-        "Bipeen-vm-nic"
+        "Bukola-vm-nic"
       ],
       "properties": {
 
@@ -97,7 +97,7 @@
         },
 
         "osProfile": {
-          "computerName": "Bipeen-vm",
+          "computerName": "Bukola-vm",
           "adminUsername": "aditi",
           "adminPassword": "Password@123"
         },
@@ -105,7 +105,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'Bipeen-vm-nic')]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'Bukola-vm-nic')]"
             }
           ]
         }

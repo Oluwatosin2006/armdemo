@@ -2,6 +2,68 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "resources": [
+
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2023-02-01",
+      "name": "Bipeen-vm-ip",
+      "location": "westus2",
+      "sku": {
+        "name": "Basic"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic"
+      }
+    },
+
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2023-02-01",
+      "name": "Bipeen-vm-vnet",
+      "location": "westus2",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "10.0.0.0/16"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "default",
+            "properties": {
+              "addressPrefix": "10.0.0.0/24"
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2023-02-01",
+      "name": "Bipeen-vm-nic",
+      "location": "westus2",
+      "dependsOn": [
+        "Bipeen-vm-vnet",
+        "Bipeen-vm-ip"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'Bipeen-vm-vnet', 'default')]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'Bipeen-vm-ip')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2023-03-01",
@@ -10,10 +72,15 @@
       "tags": {
         "Dept": "Sales"
       },
+      "dependsOn": [
+        "Bipeen-vm-nic"
+      ],
       "properties": {
+
         "hardwareProfile": {
-          "vmSize": "Standard_D2s_v3"
+          "vmSize": "Standard_B1s"
         },
+
         "storageProfile": {
           "imageReference": {
             "publisher": "MicrosoftWindowsServer",
@@ -28,15 +95,23 @@
             }
           }
         },
+
         "osProfile": {
           "computerName": "Bipeen-vm",
           "adminUsername": "aditi",
           "adminPassword": "Password@123"
         },
+
         "networkProfile": {
-          "networkInterfaces": []
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', 'Bipeen-vm-nic')]"
+            }
+          ]
         }
+
       }
     }
+
   ]
 }
